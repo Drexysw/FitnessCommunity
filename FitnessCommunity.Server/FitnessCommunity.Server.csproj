@@ -26,8 +26,4 @@
     <ProjectReference Include="..\FitnessCommunity.Presentation\FitnessCommunity.Presentation.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

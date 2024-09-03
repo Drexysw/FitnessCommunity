@@ -13,6 +13,8 @@ namespace FitnessCommunity.Application
                 configuration.RegisterServicesFromAssembly(assembly));
 
             services.AddValidatorsFromAssembly(assembly);
+
+            services.AddAutoMapper(assembly);
             return services;
         }
     }

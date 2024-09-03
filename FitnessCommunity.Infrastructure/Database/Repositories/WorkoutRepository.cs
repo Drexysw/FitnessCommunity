@@ -1,5 +1,6 @@
-﻿using FitnessCommunity.Domain.Abstractions;
-using FitnessCommunity.Domain.Entities;
+﻿using FitnessCommunity.Domain.Entities;
+using FitnessCommunity.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessCommunity.Infrastructure.Database.Repositories
 {
@@ -10,7 +11,13 @@ namespace FitnessCommunity.Infrastructure.Database.Repositories
         {
             dbContext = _dbContext;
         }
-        public async Task Add(Workout workout)
+
+        public async Task<IEnumerable<Workout>> GetAllAsync()
+        {
+            return await dbContext.Workouts.ToListAsync().ConfigureAwait(true);
+        }
+
+        public async Task AddAsync(Workout workout)
         {
             await dbContext.AddAsync(workout).ConfigureAwait(true);
         }
@@ -20,7 +27,7 @@ namespace FitnessCommunity.Infrastructure.Database.Repositories
             dbContext.Remove(workout);
         }
 
-        public async Task<Workout?> GetById(Guid id)
+        public async Task<Workout?> GetByIdAsync(Guid id)
         {
             return await dbContext.Workouts.FindAsync(id).ConfigureAwait(true);
         }
