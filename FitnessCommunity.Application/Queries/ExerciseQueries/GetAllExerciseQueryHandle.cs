@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FitnessCommunity.Domain.Dtos.ExerciseDtos.Responses;
+using FitnessCommunity.Application.Dtos.ExerciseDtos.Responses;
 using FitnessCommunity.Domain.Repositories;
 using MediatR;
 

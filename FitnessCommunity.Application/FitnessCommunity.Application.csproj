@@ -16,10 +16,4 @@
     <ProjectReference Include="..\FitnessCommunity.Domain\FitnessCommunity.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\ExerciseCommands\" />
-    <Folder Include="Commands\WorkoutCommands\" />
-    <Folder Include="Queries\WorkoutQueries\" />
-  </ItemGroup>
-
 </Project>

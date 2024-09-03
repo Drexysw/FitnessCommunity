@@ -1,4 +1,4 @@
-﻿namespace FitnessCommunity.Domain.Dtos.ExerciseDtos.Responses
+﻿namespace FitnessCommunity.Application.Dtos.ExerciseDtos.Responses
 {
     public class GetByIdExerciseResponse
     {
