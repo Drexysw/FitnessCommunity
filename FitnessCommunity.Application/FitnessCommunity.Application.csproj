@@ -16,4 +16,8 @@
     <ProjectReference Include="..\FitnessCommunity.Domain\FitnessCommunity.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\UserBadgeDtos\" />
+  </ItemGroup>
+
 </Project>

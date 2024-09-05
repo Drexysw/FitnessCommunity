@@ -10,5 +10,9 @@
         public string ProfilePictureUrl { get; set; } = string.Empty;
         public string Bio { get; set; } = string.Empty;
         public List<Workout> Workouts { get; set; } = [];
+        public ICollection<UserBadge> UserBadges { get; set; } = [];
+        public ICollection<UserWorkout> LikedWorkouts { get; set; } = [];
+
+
     }
 }

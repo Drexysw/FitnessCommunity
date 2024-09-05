@@ -1,4 +1,5 @@
 ﻿using FitnessCommunity.Domain.Entities;
+using FitnessCommunity.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessCommunity.Infrastructure.Database
@@ -16,18 +17,13 @@ namespace FitnessCommunity.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<WorkoutExercise>()
-                .HasKey(we => new { we.WorkoutId, we.ExerciseId });
-
-            modelBuilder.Entity<WorkoutExercise>()
-                .HasOne(we => we.Workout)
-                .WithMany(w => w.Exercises)
-                .HasForeignKey(we => we.WorkoutId);
-
-            modelBuilder.Entity<WorkoutExercise>()
-                .HasOne(we => we.Exercise)
-                .WithMany(e => e.Workouts)
-                .HasForeignKey(we => we.ExerciseId);
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new WorkoutConfiguration());
+            modelBuilder.ApplyConfiguration(new UserWorkoutConfiguration());
+            modelBuilder.ApplyConfiguration(new BadgeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserBadgeConfiguration());
+            modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
+            modelBuilder.ApplyConfiguration(new WorkoutExerciseConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
@@ -35,5 +31,8 @@ namespace FitnessCommunity.Infrastructure.Database
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<WorkoutExercise> WorkoutsExercises { get; set; }
+        public DbSet<Badge?> Badges { get; set; }
+        public DbSet<UserWorkout> UsersWorkouts { get; set; }
+        public DbSet<UserBadge> UsersBadges { get; set; }
     }
 }

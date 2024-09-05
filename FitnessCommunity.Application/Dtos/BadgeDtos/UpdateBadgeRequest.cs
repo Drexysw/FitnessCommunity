@@ -1,10 +1,10 @@
-﻿namespace FitnessCommunity.Domain.Entities
+﻿namespace FitnessCommunity.Application.Dtos.BadgeDtos
 {
-    public class Badge : BaseEntity.BaseEntity
+    public class UpdateBadgeRequest
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
-        public ICollection<UserBadge> UserBadges { get; set; } = [];
     }
 }
