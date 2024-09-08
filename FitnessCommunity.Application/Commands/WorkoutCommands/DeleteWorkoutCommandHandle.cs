@@ -1,18 +1,23 @@
-﻿using AutoMapper;
-using FitnessCommunity.Domain.Abstractions;
-using FitnessCommunity.Domain.Exceptions;
+﻿using FitnessCommunity.Domain.Abstractions;
+using FitnessCommunity.Domain.Exceptions.WorkoutExceptions;
 using FitnessCommunity.Domain.Repositories;
 using MediatR;
 
 namespace FitnessCommunity.Application.Commands.WorkoutCommands
 {
-    public class DeleteWorkoutCommandHandle(
-        IWorkoutRepository workoutRepository,
-        IUnitOfWork unitOfWork)
-        : IRequestHandler<DeleteWorkoutCommand>
+    public class DeleteWorkoutCommandHandle : IRequestHandler<DeleteWorkoutCommand>
     {
-        private readonly IWorkoutRepository _workoutRepository = workoutRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IWorkoutRepository _workoutRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWorkoutRepository _workoutRepository1;
+
+        public DeleteWorkoutCommandHandle(IWorkoutRepository workoutRepository,
+            IUnitOfWork unitOfWork)
+        {
+            _workoutRepository1 = workoutRepository;
+            _workoutRepository = workoutRepository;
+            _unitOfWork = unitOfWork;
+        }
 
         public async Task Handle(DeleteWorkoutCommand request, CancellationToken cancellationToken)
         {
@@ -21,7 +26,7 @@ namespace FitnessCommunity.Application.Commands.WorkoutCommands
             {
                 throw new WorkoutNotFoundException(request.WorkoutId);
             }
-            workoutRepository.Delete(workout);
+            _workoutRepository1.Delete(workout);
             await _unitOfWork.SaveChangesAsync();
         }
     }

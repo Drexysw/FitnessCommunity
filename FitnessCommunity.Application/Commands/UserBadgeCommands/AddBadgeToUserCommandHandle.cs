@@ -14,10 +14,11 @@ namespace FitnessCommunity.Application.Commands.UserBadgeCommands
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddBadgeToUserCommandHandle(IUnitOfWork unitOfWork, IBadgeRepository badgeRepository)
+        public AddBadgeToUserCommandHandle(IUnitOfWork unitOfWork, IBadgeRepository badgeRepository, IUserRepository userRepository)
         {
             _unitOfWork = unitOfWork;
             _badgeRepository = badgeRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<Unit> Handle(AddBadgeToUserCommand request, CancellationToken cancellationToken)

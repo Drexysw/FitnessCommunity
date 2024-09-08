@@ -1,4 +1,4 @@
-﻿namespace FitnessCommunity.Application.Dtos.BadgeDtos
+﻿namespace FitnessCommunity.Application.Dtos.BadgeDtos.Requests
 {
     public class UpdateBadgeRequest
     {

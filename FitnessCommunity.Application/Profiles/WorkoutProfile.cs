@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using FitnessCommunity.Application.Dtos.WorkoutDtos;
+using FitnessCommunity.Application.Dtos.WorkoutDtos.Requests;
+using FitnessCommunity.Application.Dtos.WorkoutDtos.Responses;
 using FitnessCommunity.Domain.Entities;
 
 namespace FitnessCommunity.Application.Profiles

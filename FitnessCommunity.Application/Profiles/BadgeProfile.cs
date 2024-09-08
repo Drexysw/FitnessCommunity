@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FitnessCommunity.Application.Dtos.BadgeDtos;
+using FitnessCommunity.Application.Dtos.BadgeDtos.Requests;
 using FitnessCommunity.Domain.Entities;
 
 namespace FitnessCommunity.Application.Profiles

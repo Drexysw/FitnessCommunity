@@ -7,15 +7,20 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.UserBadgeCommands
 {
-    public class RemoveBadgeFromUserCommandHandle(
-        IBadgeRepository badgeRepository,
-        IUserRepository userRepository,
-        IUnitOfWork unitOfWork)
-        : IRequestHandler<RemoveBadgeFromUserCommand, Unit>
+    public class RemoveBadgeFromUserCommandHandle : IRequestHandler<RemoveBadgeFromUserCommand, Unit>
     {
-        private readonly IBadgeRepository _badgeRepository = badgeRepository;
-        private readonly IUserRepository _userRepository = userRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IBadgeRepository _badgeRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public RemoveBadgeFromUserCommandHandle(IBadgeRepository badgeRepository,
+            IUserRepository userRepository,
+            IUnitOfWork unitOfWork)
+        {
+            _badgeRepository = badgeRepository;
+            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
+        }
 
         public async Task<Unit> Handle(RemoveBadgeFromUserCommand request, CancellationToken cancellationToken)
         {

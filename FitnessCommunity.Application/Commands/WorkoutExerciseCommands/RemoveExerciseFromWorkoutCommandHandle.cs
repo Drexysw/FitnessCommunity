@@ -7,15 +7,20 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.WorkoutExerciseCommands
 {
-    public class RemoveExerciseFromWorkoutCommandHandle(
-        IWorkoutRepository workoutRepository,
-        IExerciseRepository exerciseRepository,
-        IUnitOfWork unitOfWork)
-        : IRequestHandler<RemoveExerciseFromWorkoutCommand, Unit>
+    public class RemoveExerciseFromWorkoutCommandHandle : IRequestHandler<RemoveExerciseFromWorkoutCommand, Unit>
     {
-        private readonly IWorkoutRepository _workoutRepository = workoutRepository;
-        private readonly IExerciseRepository _exerciseRepository = exerciseRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IWorkoutRepository _workoutRepository;
+        private readonly IExerciseRepository _exerciseRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public RemoveExerciseFromWorkoutCommandHandle(IWorkoutRepository workoutRepository,
+            IExerciseRepository exerciseRepository,
+            IUnitOfWork unitOfWork)
+        {
+            _workoutRepository = workoutRepository;
+            _exerciseRepository = exerciseRepository;
+            _unitOfWork = unitOfWork;
+        }
 
         public  async Task<Unit> Handle(RemoveExerciseFromWorkoutCommand request, CancellationToken cancellationToken)
         {

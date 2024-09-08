@@ -12,6 +12,7 @@ namespace FitnessCommunity.Application
             services.AddMediatR(configuration =>
                 configuration.RegisterServicesFromAssembly(assembly));
 
+
             services.AddValidatorsFromAssembly(assembly);
 
             services.AddAutoMapper(assembly);

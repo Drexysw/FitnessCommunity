@@ -7,12 +7,18 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.ExerciseCommands
 {
-    public class CreateExerciseCommandHandle(IExerciseRepository exerciseRepository, IMapper mapper,IUnitOfWork unitOfWork)
-        : IRequestHandler<CreateExerciseCommand, CreateExerciseRequest>
+    public class CreateExerciseCommandHandle : IRequestHandler<CreateExerciseCommand, CreateExerciseRequest>
     {
-        private readonly IMapper _mapper = mapper;
-        private readonly IExerciseRepository _exerciseRepository = exerciseRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IExerciseRepository _exerciseRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CreateExerciseCommandHandle(IExerciseRepository exerciseRepository, IMapper mapper,IUnitOfWork unitOfWork)
+        {
+            _mapper = mapper;
+            _exerciseRepository = exerciseRepository;
+            _unitOfWork = unitOfWork;
+        }
 
         public async Task<CreateExerciseRequest> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
         {

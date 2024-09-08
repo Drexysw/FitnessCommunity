@@ -1,4 +1,4 @@
-﻿using FitnessCommunity.Application.Dtos.BadgeDtos;
+﻿using FitnessCommunity.Application.Dtos.BadgeDtos.Requests;
 using MediatR;
 
 namespace FitnessCommunity.Application.Commands.BadgeCommands

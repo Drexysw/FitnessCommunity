@@ -1,21 +1,26 @@
 ﻿using AutoMapper;
 using FitnessCommunity.Application.Dtos.ExerciseDtos.Requests;
 using FitnessCommunity.Domain.Abstractions;
-using FitnessCommunity.Domain.Exceptions;
+using FitnessCommunity.Domain.Exceptions.ExcerciseExceptions;
 using FitnessCommunity.Domain.Repositories;
 using MediatR;
 
 namespace FitnessCommunity.Application.Commands.ExerciseCommands
 {
-    public class UpdateExerciseCommandHandle(
-        IExerciseRepository exerciseRepository,
-        IUnitOfWork unitOfWork,
-        IMapper mapper)
-        : IRequestHandler<UpdateExerciseCommand, UpdateExerciseRequest>
+    public class UpdateExerciseCommandHandle : IRequestHandler<UpdateExerciseCommand, UpdateExerciseRequest>
     {
-        private readonly IExerciseRepository _exerciseRepository = exerciseRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IMapper _mapper = mapper;
+        private readonly IExerciseRepository _exerciseRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public UpdateExerciseCommandHandle(IExerciseRepository exerciseRepository,
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
+        {
+            _exerciseRepository = exerciseRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
 
         public async Task<UpdateExerciseRequest> Handle(UpdateExerciseCommand request, CancellationToken cancellationToken)
         {
@@ -26,7 +31,7 @@ namespace FitnessCommunity.Application.Commands.ExerciseCommands
             }
 
             var updatedExercise = _mapper.Map(request.UpdateExerciseRequest, exercise);
-            await exerciseRepository.UpdateAsync(updatedExercise);
+            await _exerciseRepository.UpdateAsync(updatedExercise);
             await _unitOfWork.SaveChangesAsync();
             return request.UpdateExerciseRequest;
         }

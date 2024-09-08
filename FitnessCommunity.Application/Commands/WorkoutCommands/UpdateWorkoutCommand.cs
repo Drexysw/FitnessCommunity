@@ -1,4 +1,4 @@
-﻿using FitnessCommunity.Application.Dtos.WorkoutDtos;
+﻿using FitnessCommunity.Application.Dtos.WorkoutDtos.Requests;
 using MediatR;
 
 namespace FitnessCommunity.Application.Commands.WorkoutCommands

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FitnessCommunity.Application.Dtos.WorkoutDtos;
+using FitnessCommunity.Application.Dtos.WorkoutDtos.Requests;
 using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Entities;
 using FitnessCommunity.Domain.Repositories;
@@ -7,15 +7,20 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.WorkoutCommands
 {
-    public class CreateWorkoutCommandHandle(
-        IWorkoutRepository workoutRepository,
-        IMapper mapper,
-        IUnitOfWork unitOfWork)
-        : IRequestHandler<CreateWorkoutCommand, CreateWorkoutRequest>
+    public class CreateWorkoutCommandHandle : IRequestHandler<CreateWorkoutCommand, CreateWorkoutRequest>
     {
-        private readonly IWorkoutRepository _workoutRepository = workoutRepository;
-        private readonly IMapper _mapper = mapper;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IWorkoutRepository _workoutRepository;
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CreateWorkoutCommandHandle(IWorkoutRepository workoutRepository,
+            IMapper mapper,
+            IUnitOfWork unitOfWork)
+        {
+            _workoutRepository = workoutRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+        }
 
         public async Task<CreateWorkoutRequest> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
         {

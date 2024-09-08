@@ -1,15 +1,21 @@
 ﻿using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Exceptions;
+using FitnessCommunity.Domain.Exceptions.BadgeExceptions;
 using FitnessCommunity.Domain.Repositories;
 using MediatR;
 
 namespace FitnessCommunity.Application.Commands.BadgeCommands
 {
-    public class DeleteBadgeCommandHandle(IBadgeRepository badgeRepository, IUnitOfWork unitOfWork)
-        : IRequestHandler<DeleteBadgeCommand, Guid>
+    public class DeleteBadgeCommandHandle : IRequestHandler<DeleteBadgeCommand, Guid>
     {
-        private readonly IBadgeRepository _badgeRepository = badgeRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IBadgeRepository _badgeRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public DeleteBadgeCommandHandle(IBadgeRepository badgeRepository, IUnitOfWork unitOfWork)
+        {
+            _badgeRepository = badgeRepository;
+            _unitOfWork = unitOfWork;
+        }
 
         public async Task<Guid> Handle(DeleteBadgeCommand request, CancellationToken cancellationToken)
         {

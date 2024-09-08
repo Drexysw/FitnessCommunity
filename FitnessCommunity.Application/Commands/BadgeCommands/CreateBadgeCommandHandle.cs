@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FitnessCommunity.Application.Dtos.BadgeDtos;
+using FitnessCommunity.Application.Dtos.BadgeDtos.Requests;
 using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Entities;
 using FitnessCommunity.Domain.Repositories;
@@ -7,11 +7,19 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.BadgeCommands
 {
-    public class CreateBadgeCommandHandle(IBadgeRepository badgeRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateBadgeCommand, CreateBadgeRequest>
+    public class CreateBadgeCommandHandle : IRequestHandler<CreateBadgeCommand, CreateBadgeRequest>
     {
-        private readonly IBadgeRepository _badgeRepository = badgeRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IMapper _mapper = mapper;
+        private readonly IBadgeRepository _badgeRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public CreateBadgeCommandHandle(IBadgeRepository badgeRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _badgeRepository = badgeRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
         public async Task<CreateBadgeRequest> Handle(CreateBadgeCommand request, CancellationToken cancellationToken)
         {
             var badge = _mapper.Map<Badge>(request.CreateBadgeRequest);
