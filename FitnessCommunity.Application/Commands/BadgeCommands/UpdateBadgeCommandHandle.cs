@@ -2,7 +2,6 @@
 using FitnessCommunity.Application.Dtos.BadgeDtos.Requests;
 using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Entities;
-using FitnessCommunity.Domain.Exceptions;
 using FitnessCommunity.Domain.Exceptions.BadgeExceptions;
 using FitnessCommunity.Domain.Repositories;
 using MediatR;
@@ -24,7 +23,7 @@ namespace FitnessCommunity.Application.Commands.BadgeCommands
 
         public async Task<UpdateBadgeRequest> Handle(UpdateBadgeCommand request, CancellationToken cancellationToken)
         {
-            var badge = await _badgeRepository.GetByIdAsync(request.UpdateBadgeRequest.Id);
+            var badge = await _badgeRepository.GetByIdAsync(request.Id);
             if (badge == null)
             {
                 throw new BadgeNotFoundException(badge.Id);

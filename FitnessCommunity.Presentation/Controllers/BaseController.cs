@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace FitnessCommunity.Server.Controllers
+namespace FitnessCommunity.Presentation.Controllers
 {
     public class BaseController : ControllerBase
     {

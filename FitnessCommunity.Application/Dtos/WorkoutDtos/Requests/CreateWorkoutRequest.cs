@@ -4,5 +4,6 @@ namespace FitnessCommunity.Application.Dtos.WorkoutDtos.Requests
 {
     public class CreateWorkoutRequest : Base.BaseWorkoutDto
     {
+        public Guid Id { get; set; }
     }
 }

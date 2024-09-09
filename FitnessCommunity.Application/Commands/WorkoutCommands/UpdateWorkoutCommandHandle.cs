@@ -24,10 +24,10 @@ namespace FitnessCommunity.Application.Commands.WorkoutCommands
 
         public async Task<UpdateWorkoutRequest> Handle(UpdateWorkoutCommand request, CancellationToken cancellationToken)
         {
-            var workout = await _workoutRepository.GetByIdAsync(request.UpdateWorkoutRequest.Id);
+            var workout = await _workoutRepository.GetByIdAsync(request.Id);
             if (workout == null)
             {
-                throw new WorkoutNotFoundException(request.UpdateWorkoutRequest.Id);
+                throw new WorkoutNotFoundException(request.Id);
             }
 
             var workoutToUpdate = _mapper.Map(request.UpdateWorkoutRequest, workout);

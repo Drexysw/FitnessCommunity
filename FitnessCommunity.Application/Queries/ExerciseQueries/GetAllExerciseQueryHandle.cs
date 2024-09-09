@@ -7,11 +7,12 @@ namespace FitnessCommunity.Application.Queries.ExerciseQueries
 {
     public class GetAllExerciseQueryHandle : IRequestHandler<GetAllExerciseQuery, IEnumerable<GetAllExerciseResponse>>
     {
-        public readonly IExerciseRepository _exerciseRepository;
+        private readonly IExerciseRepository _exerciseRepository;
         private readonly IMapper _mapper;
-        public GetAllExerciseQueryHandle(IExerciseRepository exerciseRepository)
+        public GetAllExerciseQueryHandle(IExerciseRepository exerciseRepository, IMapper mapper)
         {
             _exerciseRepository = exerciseRepository;
+            _mapper = mapper;
         }
         public async Task<IEnumerable<GetAllExerciseResponse>> Handle(GetAllExerciseQuery request, CancellationToken cancellationToken)
         {

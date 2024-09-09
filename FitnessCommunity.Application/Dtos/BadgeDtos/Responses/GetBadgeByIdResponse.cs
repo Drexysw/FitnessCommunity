@@ -1,6 +1,6 @@
-﻿namespace FitnessCommunity.Application.Dtos.BadgeDtos.Requests
+﻿namespace FitnessCommunity.Application.Dtos.BadgeDtos.Responses
 {
-    public class UpdateBadgeRequest
+    public class GetBadgeByIdResponse
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

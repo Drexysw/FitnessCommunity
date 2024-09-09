@@ -5,6 +5,7 @@ namespace FitnessCommunity.Application.Dtos.ExerciseDtos.Requests
 {
     public class CreateExerciseRequest
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         [Url]
         public string VideoUrl { get; set; } = string.Empty;

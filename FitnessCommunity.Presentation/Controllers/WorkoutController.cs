@@ -1,0 +1,93 @@
+﻿using AutoMapper;
+using FitnessCommunity.Application.Commands.WorkoutCommands;
+using FitnessCommunity.Application.Dtos.WorkoutDtos.Requests;
+using FitnessCommunity.Application.Queries.WorkoutQueries;
+using FitnessCommunity.Domain.Exceptions.WorkoutExceptions;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace FitnessCommunity.Presentation.Controllers
+{
+    public class WorkoutController : BaseController
+    {
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
+        private readonly ILogger<WorkoutController> _logger;
+        public WorkoutController(IMediator mediator, IMapper mapper, ILogger<WorkoutController> logger)
+        {
+            _mediator = mediator;
+            _mapper = mapper;
+            _logger = logger;
+        }
+        [HttpGet]
+        [Route("api/workouts")]
+        public async Task<IActionResult> GetAllWorkouts()
+        {
+            var getAllWorkoutsQuery = new GetAllWorkoutQuery();
+            var result = await _mediator.Send(getAllWorkoutsQuery);
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("api/workouts/{id}")]
+        public async Task<IActionResult> GetWorkoutById(Guid id)
+        {
+            var getWorkoutByIdQuery = new GetWorkoutByIdQuery(id);
+            try
+            {
+                var result = await _mediator.Send(getWorkoutByIdQuery);
+                return Ok(result);
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return NotFound();
+            }
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("api/workouts")]
+        public async Task<IActionResult> CreateWorkout([FromBody] CreateWorkoutRequest request)
+        {
+            var createWorkoutCommand = _mapper.Map<CreateWorkoutCommand>(request);
+            var result = await _mediator.Send(createWorkoutCommand);
+            return CreatedAtAction(nameof(GetWorkoutById), new { id = result.Id }, result);
+        }
+        [Authorize]
+        [HttpPut]
+        [Route("api/workouts/{id}")]
+        public async Task<IActionResult> UpdateWorkout(Guid id, [FromBody] UpdateWorkoutRequest request)
+        {
+            var updateWorkoutCommand = _mapper.Map<UpdateWorkoutCommand>(request);
+            updateWorkoutCommand.Id = id;
+            try
+            {
+                await _mediator.Send(updateWorkoutCommand);
+                return RedirectToAction(nameof(GetWorkoutById), new {id});
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return NotFound();
+            }
+        }
+        [Authorize]
+        [HttpDelete]
+        [Route("api/workouts/{id}")]
+        public async Task<IActionResult> DeleteWorkout(Guid id)
+        {
+            var deleteWorkoutCommand = new DeleteWorkoutCommand(id);
+            try
+            { 
+                await _mediator.Send(deleteWorkoutCommand);
+                return RedirectToAction(nameof(GetAllWorkouts));
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return NotFound();
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ namespace FitnessCommunity.Application.Commands.WorkoutCommands
 {
     public class UpdateWorkoutCommand(UpdateWorkoutRequest updateWorkoutRequest) : IRequest<UpdateWorkoutRequest>
     {
+        public Guid Id { get; set; }
         public UpdateWorkoutRequest UpdateWorkoutRequest { get; } = updateWorkoutRequest;
     }
 }

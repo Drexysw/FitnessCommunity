@@ -24,7 +24,7 @@ namespace FitnessCommunity.Application.Commands.ExerciseCommands
 
         public async Task<UpdateExerciseRequest> Handle(UpdateExerciseCommand request, CancellationToken cancellationToken)
         {
-            var exercise = await _exerciseRepository.GetByIdAsync(request.UpdateExerciseRequest.Id);
+            var exercise = await _exerciseRepository.GetByIdAsync(request.Id);
             if (exercise == null)
             {
                 throw new ExerciseNotFoundException(exercise.Id);

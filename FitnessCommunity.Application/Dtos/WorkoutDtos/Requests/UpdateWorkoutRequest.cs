@@ -2,6 +2,5 @@
 {
     public class UpdateWorkoutRequest : Base.BaseWorkoutDto
     {
-        public Guid Id { get; set; }
     }
 }
