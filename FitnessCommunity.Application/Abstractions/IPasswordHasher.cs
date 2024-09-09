@@ -1,4 +1,4 @@
-﻿namespace FitnessCommunity.Domain.Abstractions
+﻿namespace FitnessCommunity.Application.Abstractions
 {
     public interface IPasswordHasher
     {

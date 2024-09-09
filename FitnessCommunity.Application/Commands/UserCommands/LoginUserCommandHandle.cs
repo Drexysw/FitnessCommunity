@@ -1,4 +1,4 @@
-﻿using FitnessCommunity.Domain.Abstractions;
+﻿using FitnessCommunity.Application.Abstractions;
 using FitnessCommunity.Domain.Exceptions.PasswordExceptions;
 using FitnessCommunity.Domain.Exceptions.UserExceptions;
 using FitnessCommunity.Domain.Repositories;

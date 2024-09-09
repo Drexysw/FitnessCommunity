@@ -1,68 +1,46 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using FitnessCommunity.Domain.Abstractions;
+﻿using FitnessCommunity.Application.Abstractions;
 using FitnessCommunity.Domain.Entities;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace FitnessCommunity.Infrastructure.Database.Abstractions
 {
-    public class JwtTokenService : ITokenService
+    public sealed class JwtTokenService : ITokenService
     {
-        private readonly string _secretKey;
-        private readonly string _issuer;
-        private readonly string _audience;
+        private readonly JwtOptions config;
 
-        public JwtTokenService(string secretKey, string issuer, string audience)
+        public JwtTokenService(IOptions<JwtOptions> config)
         {
-            _secretKey = secretKey;
-            _issuer = issuer;
-            _audience = audience;
+            this.config = config.Value;
         }
-
+                                                                    
         public string GenerateToken(User user)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Convert.FromBase64String(_secretKey);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var claims = new[]
             {
-                Subject = new ClaimsIdentity([new Claim(ClaimTypes.Name, user.Username)]),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = _issuer,
-                Audience = _audience
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+
+            var signingCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Key)),
+                SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                config.Issuer,
+                config.Audience,
+                claims,
+                null,
+                DateTime.UtcNow.AddHours(1),
+                signingCredentials);
+
+            string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+            return tokenValue;
         }
 
-        public bool ValidateToken(string token)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            try
-            {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = _issuer,
-                    ValidAudience = _audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(_secretKey))
-                }, out SecurityToken validatedToken);
-
-                return validatedToken != null;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public string RefreshToken(string refreshToken)
-        {
-            // Implement refresh token logic if applicable
-            throw new NotImplementedException();
-        }
+        
     }
 }

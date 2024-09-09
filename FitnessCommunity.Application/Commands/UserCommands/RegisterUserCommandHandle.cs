@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FitnessCommunity.Application.Abstractions;
 using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Entities;
 using FitnessCommunity.Domain.Repositories;

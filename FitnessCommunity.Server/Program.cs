@@ -1,6 +1,7 @@
-
 using FitnessCommunity.Application;
 using FitnessCommunity.Infrastructure;
+using FitnessCommunity.Server.OptionsSetup;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FitnessCommunity.Server
 {
@@ -15,8 +16,15 @@ namespace FitnessCommunity.Server
             builder.Services.AddSwaggerGen();
 
             builder.Services
-                .AddApplication()
+                .AddApplication(builder.Configuration)
                 .AddInfrastructure(builder.Configuration);
+
+            builder.Services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer();
+
+            builder.Services.ConfigureOptions<JwtOptionsSetup>();
+            builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
             var app = builder.Build();
 
@@ -32,6 +40,7 @@ namespace FitnessCommunity.Server
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
