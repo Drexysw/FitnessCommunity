@@ -34,6 +34,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [HttpGet("api/exercises/{id}")]
         public async Task<IActionResult> GetExerciseById(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("ExerciseId is empty");
+                return BadRequest();
+            }
             var query = new GetByIdExerciseQuery(id);
             try
             {
@@ -53,13 +58,18 @@ namespace FitnessCommunity.Presentation.Controllers
         {
             var command = _mapper.Map<CreateExerciseCommand>(request);
             var result = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetExerciseById), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(GetExerciseById), new { id = request.Id }, result);
         }
 
         [Authorize]
         [HttpPut("api/exercises/{id}")]
         public async Task<IActionResult> UpdateExercise(Guid id, [FromBody] UpdateExerciseRequest request)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("ExerciseId is empty");
+                return BadRequest();
+            }
             var command = _mapper.Map<UpdateExerciseCommand>(request);
             command.Id = id;
             try
@@ -78,6 +88,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [HttpDelete("api/exercises/{id}")]
         public async Task<IActionResult> DeleteExercise(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("ExerciseId is empty");
+                return BadRequest();
+            }
             var command = new DeleteExerciseCommand(id);
             try
             {

@@ -42,6 +42,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("update/{id}")]
         public async Task<IActionResult> UpdateUser(Guid id,[FromBody] UpdateUserRequest request)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("UserId is empty");
+                return BadRequest();
+            }
             var command = _mapper.Map<UpdateUserCommand>(request);
             command.Id = id;
             try
@@ -60,6 +65,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("delete/{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("UserId is empty");
+                return BadRequest();
+            }
             var command = new DeleteUserCommand(id);
             try
             {
@@ -77,6 +87,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Authorize]
         public async Task<IActionResult> GetUser(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("UserId is empty");
+                return BadRequest();
+            }
             var command = new GetUserByIdQuery(id);
             try
             {

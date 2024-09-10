@@ -33,6 +33,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("api/badges/{id}")]
         public async Task<IActionResult> GetBadgeById(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("BadgeId is empty");
+                return BadRequest();
+            }
             var getBadgeByIdQuery = new GetBadgeByIdQuery(id);
             try
             {
@@ -59,6 +64,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("api/badges/{id}")]
         public async Task<IActionResult> UpdateBadge(Guid id, [FromBody] UpdateBadgeRequest request)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("BadgeId is empty");
+                return BadRequest();
+            }
             var updateBadgeCommand = _mapper.Map<UpdateBadgeCommand>(request);
             updateBadgeCommand.Id = id;
             try
@@ -77,6 +87,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("api/badges/{id}")]
         public async Task<IActionResult> DeleteBadge(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("BadgeId is empty");
+                return BadRequest();
+            }
             var deleteBadgeCommand = new DeleteBadgeCommand(id);
             try
             {

@@ -3,6 +3,7 @@ using FitnessCommunity.Application.Commands.WorkoutCommands;
 using FitnessCommunity.Application.Commands.WorkoutExerciseCommands;
 using FitnessCommunity.Application.Dtos.WorkoutDtos.Requests;
 using FitnessCommunity.Application.Queries.WorkoutQueries;
+using FitnessCommunity.Domain.Entities;
 using FitnessCommunity.Domain.Exceptions.ExcerciseExceptions;
 using FitnessCommunity.Domain.Exceptions.WorkoutExceptions;
 using MediatR;
@@ -35,6 +36,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("api/workouts/{id}")]
         public async Task<IActionResult> GetWorkoutById(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("WorkoutId is empty");
+                return BadRequest();
+            }
             var getWorkoutByIdQuery = new GetWorkoutByIdQuery(id);
             try
             {
@@ -54,13 +60,18 @@ namespace FitnessCommunity.Presentation.Controllers
         {
             var createWorkoutCommand = _mapper.Map<CreateWorkoutCommand>(request);
             var result = await _mediator.Send(createWorkoutCommand);
-            return CreatedAtAction(nameof(GetWorkoutById), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(GetWorkoutById), new { id = request.Id }, result);
         }
         [Authorize]
         [HttpPut]
         [Route("api/workouts/{id}")]
         public async Task<IActionResult> UpdateWorkout(Guid id, [FromBody] UpdateWorkoutRequest request)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("WorkoutId is empty");
+                return BadRequest();
+            }
             var updateWorkoutCommand = _mapper.Map<UpdateWorkoutCommand>(request);
             updateWorkoutCommand.Id = id;
             try
@@ -79,6 +90,11 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("api/workouts/{id}")]
         public async Task<IActionResult> DeleteWorkout(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                _logger.LogError("WorkoutId is empty");
+                return BadRequest();
+            }
             var deleteWorkoutCommand = new DeleteWorkoutCommand(id);
             try
             { 
@@ -97,6 +113,17 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("api/workouts/{workoutId}/exercises/{exerciseId}")]
         public async Task<IActionResult> AddExerciseToWorkout(Guid workoutId,Guid exerciseId)
         {
+            if (workoutId == Guid.Empty)
+            {
+                _logger.LogError("WorkoutId is empty");
+                return BadRequest();
+            }
+
+            if (exerciseId == Guid.Empty)
+            {
+                _logger.LogError("WorkoutId is empty");
+                return BadRequest();
+            }
             var addExerciseToWorkoutCommand = new AddExerciseToWorkoutCommand(workoutId, exerciseId);
             try
             {
@@ -120,6 +147,18 @@ namespace FitnessCommunity.Presentation.Controllers
         [Route("api/workouts/{workoutId}/exercises/{exerciseId}")]
         public async Task<IActionResult> RemoveExerciseFromWorkout(Guid workoutId, Guid exerciseId)
         {
+            if (workoutId == Guid.Empty)
+            {
+                _logger.LogError("WorkoutId is empty");
+                return BadRequest();
+            }
+
+            if (exerciseId == Guid.Empty)
+            {
+                _logger.LogError("WorkoutId is empty");
+                return BadRequest();
+            }
+
             var removeExerciseFromWorkoutCommand = new RemoveExerciseFromWorkoutCommand(workoutId, exerciseId);
             try
             {
