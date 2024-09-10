@@ -21,14 +21,14 @@ namespace FitnessCommunity.Application.Commands.UserCommands
 
         public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userService.GetUserByEmailAsync(request.LoginUserRequest.Email);
+            var user = await _userService.GetUserByEmailAsync(request.Email);
 
             if (user == null)
             {
                 throw new UserNotFoundException(user.Id);
             }
 
-            if (!_passwordHasher.VerifyPassword(user.Password, request.LoginUserRequest.Password))
+            if (!_passwordHasher.VerifyPassword(user.Password, request.Password))
             {
                 throw new InvalidPasswordException();
             }

@@ -30,7 +30,7 @@ namespace FitnessCommunity.Application.Commands.UserCommands
                 throw new UserNotFoundException(user.Id);
             }
 
-            var newUser = _mapper.Map(request.UpdateUserRequest, user);
+            var newUser = _mapper.Map<User>(request);
             newUser.Password = _passwordHasher.HashPassword(newUser.Password);
             await _userRepository.UpdateUser(newUser);
             await _unitOfWork.SaveChangesAsync();
