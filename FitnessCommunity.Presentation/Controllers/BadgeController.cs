@@ -52,7 +52,7 @@ namespace FitnessCommunity.Presentation.Controllers
         {
             var createBadgeCommand = _mapper.Map<CreateBadgeCommand>(request);
             var result = await _mediator.Send(createBadgeCommand);
-            return CreatedAtAction(nameof(GetBadgeById), new { id = result.Id }, result);
+            return Ok();
         }
         [Authorize]
         [HttpPut]

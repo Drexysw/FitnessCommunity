@@ -1,4 +1,5 @@
-﻿using FitnessCommunity.Domain.Abstractions;
+﻿using FitnessCommunity.Application.Abstractions;
+using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Repositories;
 using FitnessCommunity.Infrastructure.Database;
 using FitnessCommunity.Infrastructure.Database.Abstractions;

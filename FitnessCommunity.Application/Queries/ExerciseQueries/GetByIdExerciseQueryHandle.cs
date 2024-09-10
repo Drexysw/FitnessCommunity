@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FitnessCommunity.Application.Dtos.ExerciseDtos.Responses;
 using FitnessCommunity.Domain.Exceptions;
+using FitnessCommunity.Domain.Exceptions.ExcerciseExceptions;
 using FitnessCommunity.Domain.Repositories;
 using MediatR;
 

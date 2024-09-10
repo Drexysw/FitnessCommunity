@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FitnessCommunity.Application.Commands.WorkoutCommands;
+using FitnessCommunity.Application.Commands.WorkoutExerciseCommands;
 using FitnessCommunity.Application.Dtos.WorkoutDtos.Requests;
 using FitnessCommunity.Application.Queries.WorkoutQueries;
+using FitnessCommunity.Domain.Exceptions.ExcerciseExceptions;
 using FitnessCommunity.Domain.Exceptions.WorkoutExceptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -82,6 +84,52 @@ namespace FitnessCommunity.Presentation.Controllers
             { 
                 await _mediator.Send(deleteWorkoutCommand);
                 return RedirectToAction(nameof(GetAllWorkouts));
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return NotFound();
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("api/workouts/{workoutId}/exercises/{exerciseId}")]
+        public async Task<IActionResult> AddExerciseToWorkout(Guid workoutId,Guid exerciseId)
+        {
+            var addExerciseToWorkoutCommand = new AddExerciseToWorkoutCommand(workoutId, exerciseId);
+            try
+            {
+                var result = await _mediator.Send(addExerciseToWorkoutCommand);
+                return CreatedAtAction(nameof(GetWorkoutById), new { id = workoutId }, result);
+            }
+            catch (ExerciseNotFoundException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return NotFound();
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return NotFound();
+            }
+
+        }
+        [Authorize]
+        [HttpDelete]
+        [Route("api/workouts/{workoutId}/exercises/{exerciseId}")]
+        public async Task<IActionResult> RemoveExerciseFromWorkout(Guid workoutId, Guid exerciseId)
+        {
+            var removeExerciseFromWorkoutCommand = new RemoveExerciseFromWorkoutCommand(workoutId, exerciseId);
+            try
+            {
+                var result = await _mediator.Send(removeExerciseFromWorkoutCommand);
+                return CreatedAtAction(nameof(GetWorkoutById), new { id = workoutId }, result);
+            }
+            catch (ExerciseNotFoundException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return NotFound();
             }
             catch (WorkoutNotFoundException ex)
             {

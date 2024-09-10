@@ -19,10 +19,10 @@ namespace FitnessCommunity.Application.Commands.BadgeCommands
 
         public async Task<Guid> Handle(DeleteBadgeCommand request, CancellationToken cancellationToken)
         {
-            var badge = await _badgeRepository.GetByIdAsync(request.Id);
+            var badge = await _badgeRepository.GetByIdAsync(request.BadgeId);
             if (badge == null)
             {
-                throw new BadgeNotFoundException(request.Id);
+                throw new BadgeNotFoundException(request.BadgeId);
             }
             _badgeRepository.DeleteAsync(badge);
             await _unitOfWork.SaveChangesAsync();

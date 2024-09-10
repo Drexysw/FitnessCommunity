@@ -1,4 +1,4 @@
-﻿using FitnessCommunity.Domain.Abstractions;
+﻿using FitnessCommunity.Application.Abstractions;
 using Microsoft.AspNetCore.Identity;
 
 namespace FitnessCommunity.Infrastructure.Database.Abstractions

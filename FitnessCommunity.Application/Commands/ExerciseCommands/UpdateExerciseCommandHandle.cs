@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using FitnessCommunity.Application.Dtos.ExerciseDtos.Requests;
 using FitnessCommunity.Domain.Abstractions;
+using FitnessCommunity.Domain.Entities;
 using FitnessCommunity.Domain.Exceptions.ExcerciseExceptions;
 using FitnessCommunity.Domain.Repositories;
 using MediatR;
 
 namespace FitnessCommunity.Application.Commands.ExerciseCommands
 {
-    public class UpdateExerciseCommandHandle : IRequestHandler<UpdateExerciseCommand, UpdateExerciseRequest>
+    public class UpdateExerciseCommandHandle : IRequestHandler<UpdateExerciseCommand, Unit>
     {
         private readonly IExerciseRepository _exerciseRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,7 +22,7 @@ namespace FitnessCommunity.Application.Commands.ExerciseCommands
             _mapper = mapper;
         }
 
-        public async Task<UpdateExerciseRequest> Handle(UpdateExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateExerciseCommand request, CancellationToken cancellationToken)
         {
             var exercise = await _exerciseRepository.GetByIdAsync(request.Id);
             if (exercise == null)
@@ -30,10 +30,10 @@ namespace FitnessCommunity.Application.Commands.ExerciseCommands
                 throw new ExerciseNotFoundException(exercise.Id);
             }
 
-            var updatedExercise = _mapper.Map(request.UpdateExerciseRequest, exercise);
+            var updatedExercise = _mapper.Map<Exercise>(request);
             await _exerciseRepository.UpdateAsync(updatedExercise);
             await _unitOfWork.SaveChangesAsync();
-            return request.UpdateExerciseRequest;
+            return Unit.Value;
         }
     }
 }
