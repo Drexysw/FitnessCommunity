@@ -60,7 +60,7 @@ namespace FitnessCommunity.Presentation.Controllers
         {
             var createWorkoutCommand = _mapper.Map<CreateWorkoutCommand>(request);
             var result = await _mediator.Send(createWorkoutCommand);
-            return CreatedAtAction(nameof(GetWorkoutById), new { id = request.Id }, result);
+            return RedirectToAction(nameof(GetWorkoutById), new { id = result });
         }
         [Authorize]
         [HttpPut]

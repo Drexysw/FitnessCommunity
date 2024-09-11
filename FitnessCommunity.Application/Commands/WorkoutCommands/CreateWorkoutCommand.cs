@@ -3,7 +3,7 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.WorkoutCommands
 {
-    public class CreateWorkoutCommand : BaseWorkoutRequest, IRequest<Unit>
+    public class CreateWorkoutCommand : BaseWorkoutRequest, IRequest<Guid>
     {
     }
 }

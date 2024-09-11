@@ -7,7 +7,7 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.WorkoutCommands
 {
-    public class CreateWorkoutCommandHandle : IRequestHandler<CreateWorkoutCommand, Unit>
+    public class CreateWorkoutCommandHandle : IRequestHandler<CreateWorkoutCommand, Guid>
     {
         private readonly IWorkoutRepository _workoutRepository;
         private readonly IMapper _mapper;
@@ -22,12 +22,12 @@ namespace FitnessCommunity.Application.Commands.WorkoutCommands
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
         {
             var workout = _mapper.Map<Workout>(request);
             await _workoutRepository.AddAsync(workout);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return workout.Id;
         }
     }
 }

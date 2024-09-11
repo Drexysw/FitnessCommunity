@@ -6,7 +6,7 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.BadgeCommands
 {
-    public class CreateBadgeCommandHandle : IRequestHandler<CreateBadgeCommand, Unit>
+    public class CreateBadgeCommandHandle : IRequestHandler<CreateBadgeCommand, Guid>
     {
         private readonly IBadgeRepository _badgeRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,12 +19,12 @@ namespace FitnessCommunity.Application.Commands.BadgeCommands
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(CreateBadgeCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateBadgeCommand request, CancellationToken cancellationToken)
         {
             var badge = _mapper.Map<Badge>(request);
             await _badgeRepository.AddAsync(badge);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return badge.Id;
         }
     }
 }

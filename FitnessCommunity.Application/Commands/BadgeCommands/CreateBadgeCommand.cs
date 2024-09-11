@@ -3,7 +3,7 @@ using MediatR;
 
 namespace FitnessCommunity.Application.Commands.BadgeCommands
 {
-    public class CreateBadgeCommand : BaseBadgeRequest, IRequest<Unit>
+    public class CreateBadgeCommand : BaseBadgeRequest, IRequest<Guid>
     {
     }
 }
