@@ -4,17 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessCommunity.Infrastructure.Database
 {
-    public class FitnessCommunityDbContext : DbContext
+    public class FitnessCommunityDbContext(DbContextOptions<FitnessCommunityDbContext> options) : DbContext(options)
     {
-        public FitnessCommunityDbContext()
-        {
-            
-        }
-        public FitnessCommunityDbContext(DbContextOptions<FitnessCommunityDbContext> options) : base(options)
-        {
-            
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
@@ -31,7 +22,7 @@ namespace FitnessCommunity.Infrastructure.Database
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<WorkoutExercise> WorkoutsExercises { get; set; }
-        public DbSet<Badge?> Badges { get; set; }
+        public DbSet<Badge> Badges { get; set; }
         public DbSet<UserWorkout> UsersWorkouts { get; set; }
         public DbSet<UserBadge> UsersBadges { get; set; }
     }

@@ -17,6 +17,7 @@ namespace FitnessCommunity.Server
                 .AddInfrastructure(builder.Configuration)
                 .AddPresentation();
 
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

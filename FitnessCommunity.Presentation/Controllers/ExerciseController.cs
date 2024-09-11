@@ -23,7 +23,8 @@ namespace FitnessCommunity.Presentation.Controllers
             _logger = logger;
         }
 
-        [HttpGet("api/exercises")]
+        [HttpGet]
+        [Route("api/exercises")]
         public async Task<IActionResult> GetExercises()
         {
             var query = new GetAllExerciseQuery();

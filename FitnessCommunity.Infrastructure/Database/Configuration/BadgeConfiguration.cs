@@ -15,10 +15,9 @@ namespace FitnessCommunity.Infrastructure.Database.Configuration
                 .HasMaxLength(100); 
 
             builder.Property(b => b.Description)
-                .HasMaxLength(250); 
+                .HasMaxLength(250);
 
-            builder.Property(b => b.ImageUrl)
-                .HasMaxLength(200); 
+            builder.Property(b => b.IconUrl).IsRequired();
 
             builder.HasMany(b => b.UserBadges)
                 .WithOne(ub => ub.Badge)

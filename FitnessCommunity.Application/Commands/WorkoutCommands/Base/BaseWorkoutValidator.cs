@@ -29,7 +29,6 @@ namespace FitnessCommunity.Application.Commands.WorkoutCommands.Base
         private void DescriptionRules()
         {
             RuleFor(c => c.Description)
-                .NotEmpty().WithMessage("Description must not be empty")
                 .MaximumLength(500).WithMessage("Description must not exceed 500 characters")
                 .MinimumLength(10).WithMessage("Description must be more than 10 characters");
         }

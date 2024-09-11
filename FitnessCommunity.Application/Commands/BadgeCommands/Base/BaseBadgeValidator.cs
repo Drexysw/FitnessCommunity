@@ -10,12 +10,18 @@ namespace FitnessCommunity.Application.Commands.BadgeCommands.Base
             DescriptionRules();
             NameRules();
             WorkoutRules();
+            IconRules();
+        }
+
+        private void IconRules()
+        {
+            RuleFor(c => c.IconUrl)
+                .NotEmpty().WithMessage("Icon URL is required.");
         }
 
         private void DescriptionRules()
         {
             RuleFor(c => c.Description)
-                .NotEmpty().WithMessage("Description is required.")
                 .MaximumLength(200).WithMessage("Description must not exceed 200 characters.")
                 .MinimumLength(10).WithMessage("Description length must be more than 10 characters");
         }
