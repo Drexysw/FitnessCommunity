@@ -56,7 +56,7 @@ namespace FitnessCommunity.Presentation.Controllers
         public async Task<IActionResult> CreateBadge([FromBody] CreateBadgeRequest request)
         {
             var createBadgeCommand = _mapper.Map<CreateBadgeCommand>(request);
-            var result = await _mediator.Send(createBadgeCommand);
+            await _mediator.Send(createBadgeCommand);
             return Ok();
         }
         [Authorize]

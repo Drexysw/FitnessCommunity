@@ -1,9 +1,9 @@
-﻿namespace FitnessCommunity.Application.Dtos.BadgeDtos.Requests
+﻿using FitnessCommunity.Application.Dtos.BadgeDtos.Requests.Base;
+
+namespace FitnessCommunity.Application.Dtos.BadgeDtos.Requests
 {
-    public class UpdateBadgeRequest
+    public class UpdateBadgeRequest : BaseBadgeRequest
     {
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string ImageUrl { get; set; } = string.Empty;
+        
     }
 }

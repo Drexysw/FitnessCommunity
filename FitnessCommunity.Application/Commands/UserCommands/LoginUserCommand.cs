@@ -1,11 +1,9 @@
-﻿using FitnessCommunity.Application.Dtos.UserDtos.Requests;
+﻿using FitnessCommunity.Application.Dtos.UserDtos.Requests.Base;
 using MediatR;
 
 namespace FitnessCommunity.Application.Commands.UserCommands
 {
-    public class LoginUserCommand : IRequest<string>
+    public class LoginUserCommand : BaseUserRequest,IRequest<string>
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
     }
 }

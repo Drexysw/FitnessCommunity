@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FitnessCommunity.Application.Dtos.BadgeDtos.Requests;
 using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Entities;
 using FitnessCommunity.Domain.Repositories;

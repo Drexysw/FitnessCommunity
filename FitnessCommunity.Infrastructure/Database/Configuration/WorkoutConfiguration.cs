@@ -9,7 +9,7 @@ namespace FitnessCommunity.Infrastructure.Database.Configuration
         public void Configure(EntityTypeBuilder<Workout> builder)
         {
             builder.HasKey(w => w.Id);
-            builder.Property(w => w.Name).IsRequired().HasMaxLength(100);
+            builder.Property(w => w.Name).IsRequired().HasMaxLength(70);
             builder.Property(w => w.Description).HasMaxLength(500);
             builder.Property(w => w.Level).IsRequired();
             builder.Property(w => w.Type).IsRequired();

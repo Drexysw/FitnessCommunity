@@ -13,12 +13,12 @@ namespace FitnessCommunity.Application.Profiles
             CreateMap<Badge, CreateBadgeRequest>().ReverseMap()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+                .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl));
 
             CreateMap<Badge, UpdateBadgeRequest>().ReverseMap()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+                .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl));
 
             CreateMap<Badge, GetAllBadgesResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -27,13 +27,18 @@ namespace FitnessCommunity.Application.Profiles
             CreateMap<Badge, GetBadgeByIdResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+                .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl));
+
+            CreateMap<CreateBadgeRequest,CreateBadgeCommand>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl));
 
             CreateMap<UpdateBadgeRequest, UpdateBadgeCommand>()
-                .ForMember(dest => dest.UpdateBadgeRequest,opt => opt.MapFrom(src => src));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl));
 
-            CreateMap<CreateBadgeRequest, CreateBadgeCommand>()
-                .ForMember(dest => dest.CreateBadgeRequest, opt => opt.MapFrom(src => src));
         }
     }
 }

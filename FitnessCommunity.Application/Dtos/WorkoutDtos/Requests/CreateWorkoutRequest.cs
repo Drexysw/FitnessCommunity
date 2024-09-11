@@ -2,8 +2,7 @@
 
 namespace FitnessCommunity.Application.Dtos.WorkoutDtos.Requests
 {
-    public class CreateWorkoutRequest : Base.BaseWorkoutDto
+    public class CreateWorkoutRequest : Base.BaseWorkoutRequest
     {
-        public Guid Id { get; set; }
     }
 }

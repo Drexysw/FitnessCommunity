@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FitnessCommunity.Application.Commands.UserCommands;
-using FitnessCommunity.Application.Dtos.UserDtos;
+using FitnessCommunity.Application.Dtos.UserDtos.Requests;
 using FitnessCommunity.Application.Queries.UserQueries;
 using FitnessCommunity.Domain.Exceptions.UserExceptions;
 using MediatR;

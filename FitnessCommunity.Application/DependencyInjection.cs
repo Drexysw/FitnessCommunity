@@ -1,9 +1,6 @@
-﻿using System.Text;
-using FluentValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace FitnessCommunity.Application
 {

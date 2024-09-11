@@ -35,10 +35,16 @@ namespace FitnessCommunity.Application.Profiles
                 .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level));
 
             CreateMap<CreateWorkoutRequest, CreateWorkoutCommand>()
-                .ForMember(dest => dest.CreateWorkoutRequest, opt => opt.MapFrom(src => src));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
+                .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level));
 
             CreateMap<UpdateWorkoutRequest, UpdateWorkoutCommand>()
-                .ForMember(dest => dest.UpdateWorkoutRequest, opt => opt.MapFrom(src => src));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
+                .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace FitnessCommunity.Application.Dtos.WorkoutDtos.Requests
 {
-    public class UpdateWorkoutRequest : Base.BaseWorkoutDto
+    public class UpdateWorkoutRequest : Base.BaseWorkoutRequest
     {
     }
 }

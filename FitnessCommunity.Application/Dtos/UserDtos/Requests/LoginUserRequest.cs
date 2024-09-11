@@ -1,8 +1,9 @@
-﻿namespace FitnessCommunity.Application.Dtos.UserDtos.Requests
+﻿using FitnessCommunity.Application.Dtos.UserDtos.Requests.Base;
+
+namespace FitnessCommunity.Application.Dtos.UserDtos.Requests
 {
-    public class LoginUserRequest
+    public class LoginUserRequest : BaseUserRequest
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+       
     }
 }

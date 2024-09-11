@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FitnessCommunity.Application.Dtos.WorkoutDtos.Responses
 {
-    public class GetAllWorkoutResponse : Base.BaseWorkoutDto
+    public class GetAllWorkoutResponse : Base.BaseWorkoutRequest
     {
     }
 }
