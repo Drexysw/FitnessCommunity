@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FitnessCommunity.Application.Abstractions;
-using FitnessCommunity.Application.Dtos.UserDtos;
 using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Entities;
 using FitnessCommunity.Domain.Exceptions.UserExceptions;
@@ -31,7 +30,7 @@ namespace FitnessCommunity.Application.Commands.UserCommands
             }
 
             var newUser = _mapper.Map<User>(request);
-            newUser.Password = _passwordHasher.HashPassword(newUser.Password);
+            newUser.Password = _passwordHasher.Hash(newUser.Password);
             await _userRepository.UpdateUser(newUser);
             await _unitOfWork.SaveChangesAsync();
         }

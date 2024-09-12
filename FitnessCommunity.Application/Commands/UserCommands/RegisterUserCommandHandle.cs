@@ -13,7 +13,7 @@ namespace FitnessCommunity.Application.Commands.UserCommands
         public async Task<Unit> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var user = mapper.Map<User>(request);
-            user.Password = passwordHasher.HashPassword(user.Password);
+            user.Password = passwordHasher.Hash(user.Password);
             await userRepository.AddUserAsync(user);
             await unitOfWork.SaveChangesAsync();
             return Unit.Value;

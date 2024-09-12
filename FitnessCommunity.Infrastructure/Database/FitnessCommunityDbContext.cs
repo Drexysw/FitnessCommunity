@@ -1,20 +1,18 @@
 ﻿using FitnessCommunity.Domain.Entities;
-using FitnessCommunity.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessCommunity.Infrastructure.Database
 {
-    public class FitnessCommunityDbContext(DbContextOptions<FitnessCommunityDbContext> options) : DbContext(options)
+    public sealed class FitnessCommunityDbContext : DbContext
     {
+        public FitnessCommunityDbContext(DbContextOptions<FitnessCommunityDbContext> options)
+            : base(options)
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new WorkoutConfiguration());
-            modelBuilder.ApplyConfiguration(new UserWorkoutConfiguration());
-            modelBuilder.ApplyConfiguration(new BadgeConfiguration());
-            modelBuilder.ApplyConfiguration(new UserBadgeConfiguration());
-            modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
-            modelBuilder.ApplyConfiguration(new WorkoutExerciseConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(FitnessCommunityDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
 

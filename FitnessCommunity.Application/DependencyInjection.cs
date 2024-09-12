@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FitnessCommunity.Application
@@ -7,8 +6,7 @@ namespace FitnessCommunity.Application
     public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(
-            this IServiceCollection services,
-            IConfiguration config)
+            this IServiceCollection services)
         {
             var assembly = typeof(DependencyInjection).Assembly;
 
@@ -16,7 +14,7 @@ namespace FitnessCommunity.Application
                 configuration.RegisterServicesFromAssembly(assembly));
 
 
-        services.AddValidatorsFromAssembly(assembly);
+            services.AddValidatorsFromAssembly(assembly);
 
             services.AddAutoMapper(assembly);
             return services;

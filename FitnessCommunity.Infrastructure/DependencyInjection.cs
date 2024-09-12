@@ -14,17 +14,17 @@ namespace FitnessCommunity.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
         {
-            services.AddScoped<IPasswordHasher,PasswordHasher>();
+            services.AddDbContext<FitnessCommunityDbContext>(options =>
+            {
+                options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            });
+            services.AddSingleton<IPasswordHasher,PasswordHasher>();
+            services.AddScoped<IJwtProvider, JwtProvider>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWorkoutRepository, WorkoutRepository>();
             services.AddScoped<IExerciseRepository, ExerciseRepository>();
-            services.AddScoped<ITokenService, JwtTokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBadgeRepository, BadgeRepository>();
-
-            services.AddDbContext<FitnessCommunityDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-
             return services;
         }
     }

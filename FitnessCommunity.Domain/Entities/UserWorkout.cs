@@ -2,9 +2,9 @@
 {
     public class UserWorkout
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
-        public int WorkoutId { get; set; }
+        public Guid WorkoutId { get; set; }
         public Workout Workout { get; set; }
 
         public DateTime LikedDate { get; set; } = DateTime.UtcNow;

@@ -2,8 +2,8 @@
 
 namespace FitnessCommunity.Application.Abstractions
 {
-    public interface ITokenService
+    public interface IJwtProvider
     {
-        string GenerateToken(User user);
+        string GenerateJwtToken(User user);
     }
 }

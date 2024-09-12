@@ -27,7 +27,7 @@ namespace FitnessCommunity.Infrastructure.Database.Repositories
             dbContext.Remove(workout);
         }
 
-        public async Task<Workout?> GetByIdAsync(Guid id)
+        public async Task<Workout> GetByIdAsync(Guid id)
         {
             return await dbContext.Workouts.FindAsync(id).ConfigureAwait(true);
         }

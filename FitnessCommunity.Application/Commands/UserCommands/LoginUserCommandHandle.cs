@@ -9,14 +9,14 @@ namespace FitnessCommunity.Application.Commands.UserCommands
     public class LoginUserCommandHandle : IRequestHandler<LoginUserCommand, string>
     {
         private readonly IUserRepository _userService;
-        private readonly ITokenService _tokenService;
+        private readonly IJwtProvider _jwtProvider;
         private readonly IPasswordHasher _passwordHasher;
 
-        public LoginUserCommandHandle(IUserRepository userService, ITokenService tokenService, IPasswordHasher passwordHasher)
+        public LoginUserCommandHandle(IUserRepository userService, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
         {
             _userService = userService;
-            _tokenService = tokenService;
             _passwordHasher = passwordHasher;
+            _jwtProvider = jwtProvider;
         }
 
         public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
@@ -32,7 +32,7 @@ namespace FitnessCommunity.Application.Commands.UserCommands
             {
                 throw new InvalidPasswordException();
             }
-            return _tokenService.GenerateToken(user);
+            return _jwtProvider.GenerateJwtToken(user);
         }
     }
 }

@@ -10,9 +10,9 @@ namespace FitnessCommunity.Server.OptionsSetup
     {
         private readonly JwtOptions config;
 
-        public JwtBearerOptionsSetup(JwtOptions config)
+        public JwtBearerOptionsSetup(IOptions<JwtOptions> config)
         {
-            this.config = config;
+            this.config = config.Value;
         }
 
         public void Configure(JwtBearerOptions options)
