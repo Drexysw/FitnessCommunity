@@ -6,7 +6,7 @@ using FitnessCommunity.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FitnessCommunity.Infrastructure.Database.Abstractions
+namespace FitnessCommunity.Infrastructure.Authentication
 {
     public sealed class JwtProvider : IJwtProvider
     {
@@ -31,7 +31,7 @@ namespace FitnessCommunity.Infrastructure.Database.Abstractions
                 DateTime.UtcNow.AddHours(1),
                 null);
             var tokenHandler = new JwtSecurityTokenHandler();
-            return tokenHandler.WriteToken(token); 
+            return tokenHandler.WriteToken(token);
         }
     }
 }

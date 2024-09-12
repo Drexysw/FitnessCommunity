@@ -1,7 +1,8 @@
-﻿using FitnessCommunity.Infrastructure.Database.Abstractions;
+﻿using FitnessCommunity.Infrastructure.Authentication;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace FitnessCommunity.Server.OptionsSetup
+namespace FitnessCommunity.Infrastructure.Authentication.OptionsSetup
 {
     public class JwtOptionsSetup : IConfigureOptions<JwtOptions>
     {
@@ -15,7 +16,7 @@ namespace FitnessCommunity.Server.OptionsSetup
 
         public void Configure(JwtOptions options)
         {
-             configuration.GetSection(SectionName).Bind(options);
+            configuration.GetSection(SectionName).Bind(options);
         }
     }
 }

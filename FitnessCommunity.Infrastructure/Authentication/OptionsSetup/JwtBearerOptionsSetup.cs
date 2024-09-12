@@ -1,10 +1,10 @@
 ﻿using System.Text;
-using FitnessCommunity.Infrastructure.Database.Abstractions;
+using FitnessCommunity.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FitnessCommunity.Server.OptionsSetup
+namespace FitnessCommunity.Infrastructure.Authentication.OptionsSetup
 {
     public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
     {

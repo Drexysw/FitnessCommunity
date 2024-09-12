@@ -1,9 +1,13 @@
 ﻿using FitnessCommunity.Application.Abstractions;
 using FitnessCommunity.Domain.Abstractions;
 using FitnessCommunity.Domain.Repositories;
+using FitnessCommunity.Infrastructure.Authentication;
+using FitnessCommunity.Infrastructure.Authentication.OptionsSetup;
+using FitnessCommunity.Infrastructure.Cryptography;
 using FitnessCommunity.Infrastructure.Database;
 using FitnessCommunity.Infrastructure.Database.Abstractions;
 using FitnessCommunity.Infrastructure.Database.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +22,15 @@ namespace FitnessCommunity.Infrastructure
             {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer();
+            services.ConfigureOptions<JwtOptionsSetup>();
+            services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+            services.AddAuthorization();
+
             services.AddSingleton<IPasswordHasher,PasswordHasher>();
             services.AddScoped<IJwtProvider, JwtProvider>();
             services.AddScoped<IUserRepository, UserRepository>();

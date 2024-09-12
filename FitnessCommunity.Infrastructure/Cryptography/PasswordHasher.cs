@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using FitnessCommunity.Application.Abstractions;
 
-namespace FitnessCommunity.Infrastructure.Database.Abstractions
+namespace FitnessCommunity.Infrastructure.Cryptography
 {
     public sealed class PasswordHasher : IPasswordHasher
     {
